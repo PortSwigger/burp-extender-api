@@ -71,7 +71,7 @@ public interface IScannerInsertionPoint
     static final byte INS_URL_PATH_FOLDER = 0x21;
     /**
      * Used to indicate where the payload is inserted into a URL path folder.
-     * This is now deprecated; use <code>INS_URL_PATH_FOLDER</code> instead.
+     * @deprecated This is now deprecated; use <code>INS_URL_PATH_FOLDER</code> instead.
      */
     @Deprecated
     static final byte INS_URL_PATH_REST = INS_URL_PATH_FOLDER;
