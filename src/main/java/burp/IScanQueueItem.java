@@ -31,6 +31,7 @@ public interface IScanQueueItem
      * @return An indication of the percentage completed for the scan queue
      * item.
      */
+	@Deprecated
     byte getPercentageComplete();
 
     /**
