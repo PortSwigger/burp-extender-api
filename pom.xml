@@ -4,7 +4,7 @@
   <groupId>net.portswigger.burp.extender</groupId>
   <artifactId>burp-extender-api</artifactId>
   <packaging>jar</packaging>
-  <version>1.7.22</version>
+  <version>2.1</version>
   <name>burp-extender-api</name>
   <url>https://portswigger.net/burp/extender/</url>
   <description>API to reference when building extensions for Burp Suite Pro.</description>
