@@ -5,7 +5,7 @@ package burp;
  *
  * Copyright PortSwigger Ltd. All rights reserved.
  *
- * This code may be used to extend the functionality of Burp Suite Free Edition
+ * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
  * license terms for those products.
  */
@@ -193,7 +193,8 @@ public interface IExtensionHelpers
      * @return The offset of the first occurrence of the pattern within the
      * specified bounds, or -1 if no match is found.
      */
-    int indexOf(byte[] data,
+    int indexOf(
+            byte[] data,
             byte[] pattern,
             boolean caseSensitive,
             int from,
@@ -311,6 +312,16 @@ public interface IExtensionHelpers
      * @return An <code>IParameter</code> object based on the details provided.
      */
     IParameter buildParameter(String name, String value, byte type);
+
+    /**
+     * This method constructs an <code>IHttpHeader</code> object based on the
+     * details provided.
+     *
+     * @param name The header name.
+     * @param value The header value.
+     * @return An <code>IHttpHeader</code> object based on the details provided.
+     */
+    IHttpHeader buildHeader(String name, String value);
 
     /**
      * This method constructs an <code>IScannerInsertionPoint</code> object

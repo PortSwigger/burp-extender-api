@@ -5,7 +5,7 @@ package burp;
  *
  * Copyright PortSwigger Ltd. All rights reserved.
  *
- * This code may be used to extend the functionality of Burp Suite Free Edition
+ * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
  * license terms for those products.
  */
@@ -31,7 +31,8 @@ public interface IHttpListener
      * Extensions can call the setter methods on this object to update the
      * current message and so modify Burp's behavior.
      */
-    void processHttpMessage(int toolFlag,
+    void processHttpMessage(
+            int toolFlag,
             boolean messageIsRequest,
             IHttpRequestResponse messageInfo);
 }

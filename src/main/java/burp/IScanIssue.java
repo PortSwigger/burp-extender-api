@@ -5,7 +5,7 @@ package burp;
  *
  * Copyright PortSwigger Ltd. All rights reserved.
  *
- * This code may be used to extend the functionality of Burp Suite Free Edition
+ * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
  * license terms for those products.
  */
@@ -39,7 +39,7 @@ public interface IScanIssue
 
     /**
      * This method returns a numeric identifier of the issue type. See the Burp
-     * Scanner help documentation for a listing of all the issue types.
+     * Scanner documentation for a listing of all the issue types.
      *
      * @return A numeric identifier of the issue type.
      */

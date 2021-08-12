@@ -5,7 +5,7 @@ package burp;
  *
  * Copyright PortSwigger Ltd. All rights reserved.
  *
- * This code may be used to extend the functionality of Burp Suite Free Edition
+ * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
  * license terms for those products.
  */
@@ -29,6 +29,8 @@ public interface IBurpCollaboratorClientContext
      * @param includeCollaboratorServerLocation Specifies whether to include the
      * Collaborator server location in the generated payload.
      * @return The payload that was generated.
+     *
+     * @throws IllegalStateException if Burp Collaborator is disabled
      */
     String generatePayload(boolean includeCollaboratorServerLocation);
 
@@ -39,6 +41,8 @@ public interface IBurpCollaboratorClientContext
      *
      * @return The Collaborator interactions that have occurred resulting from
      * payloads that were generated for this context.
+     *
+     * @throws IllegalStateException if Burp Collaborator is disabled
      */
     List<IBurpCollaboratorInteraction> fetchAllCollaboratorInteractions();
 
@@ -50,6 +54,8 @@ public interface IBurpCollaboratorClientContext
      * @param payload The payload for which interactions will be retrieved.
      * @return The Collaborator interactions that have occurred resulting from
      * the given payload.
+     *
+     * @throws IllegalStateException if Burp Collaborator is disabled
      */
     List<IBurpCollaboratorInteraction> fetchCollaboratorInteractionsFor(String payload);
 
@@ -61,6 +67,8 @@ public interface IBurpCollaboratorClientContext
      * @return The interactions triggered by the Burp Infiltrator
      * instrumentation that have occurred resulting from payloads that were
      * generated for this context.
+     *
+     * @throws IllegalStateException if Burp Collaborator is disabled
      */
     List<IBurpCollaboratorInteraction> fetchAllInfiltratorInteractions();
 
@@ -72,6 +80,8 @@ public interface IBurpCollaboratorClientContext
      * @param payload The payload for which interactions will be retrieved.
      * @return The interactions triggered by the Burp Infiltrator
      * instrumentation that have occurred resulting from the given payload.
+     *
+     * @throws IllegalStateException if Burp Collaborator is disabled
      */
     List<IBurpCollaboratorInteraction> fetchInfiltratorInteractionsFor(String payload);
 
@@ -80,6 +90,8 @@ public interface IBurpCollaboratorClientContext
      * server.
      *
      * @return The hostname or IP address of the Collaborator server.
+     *
+     * @throws IllegalStateException if Burp Collaborator is disabled
      */
     String getCollaboratorServerLocation();
 }

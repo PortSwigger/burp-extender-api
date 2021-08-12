@@ -5,7 +5,7 @@ package burp;
  *
  * Copyright PortSwigger Ltd. All rights reserved.
  *
- * This code may be used to extend the functionality of Burp Suite Free Edition
+ * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
  * license terms for those products.
  */
@@ -33,6 +33,7 @@ public interface IMessageEditorTabFactory
      * @return A new
      * <code>IMessageEditorTab</code> object for use within the message editor.
      */
-    IMessageEditorTab createNewInstance(IMessageEditorController controller,
+    IMessageEditorTab createNewInstance(
+            IMessageEditorController controller,
             boolean editable);
 }

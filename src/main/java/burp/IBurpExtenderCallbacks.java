@@ -5,7 +5,7 @@ package burp;
  *
  * Copyright PortSwigger Ltd. All rights reserved.
  *
- * This code may be used to extend the functionality of Burp Suite Free Edition
+ * This code may be used to extend the functionality of Burp Suite Community Edition
  * and Burp Suite Professional, provided that this usage does not violate the
  * license terms for those products.
  */
@@ -31,47 +31,47 @@ public interface IBurpExtenderCallbacks
     /**
      * Flag used to identify Burp Suite as a whole.
      */
-    static final int TOOL_SUITE = 0x00000001;
+    int TOOL_SUITE = 0x00000001;
     /**
      * Flag used to identify the Burp Target tool.
      */
-    static final int TOOL_TARGET = 0x00000002;
+    int TOOL_TARGET = 0x00000002;
     /**
      * Flag used to identify the Burp Proxy tool.
      */
-    static final int TOOL_PROXY = 0x00000004;
+    int TOOL_PROXY = 0x00000004;
     /**
      * Flag used to identify the Burp Spider tool.
      */
-    static final int TOOL_SPIDER = 0x00000008;
+    int TOOL_SPIDER = 0x00000008;
     /**
      * Flag used to identify the Burp Scanner tool.
      */
-    static final int TOOL_SCANNER = 0x00000010;
+    int TOOL_SCANNER = 0x00000010;
     /**
      * Flag used to identify the Burp Intruder tool.
      */
-    static final int TOOL_INTRUDER = 0x00000020;
+    int TOOL_INTRUDER = 0x00000020;
     /**
      * Flag used to identify the Burp Repeater tool.
      */
-    static final int TOOL_REPEATER = 0x00000040;
+    int TOOL_REPEATER = 0x00000040;
     /**
      * Flag used to identify the Burp Sequencer tool.
      */
-    static final int TOOL_SEQUENCER = 0x00000080;
+    int TOOL_SEQUENCER = 0x00000080;
     /**
      * Flag used to identify the Burp Decoder tool.
      */
-    static final int TOOL_DECODER = 0x00000100;
+    int TOOL_DECODER = 0x00000100;
     /**
      * Flag used to identify the Burp Comparer tool.
      */
-    static final int TOOL_COMPARER = 0x00000200;
+    int TOOL_COMPARER = 0x00000200;
     /**
      * Flag used to identify the Burp Extender tool.
      */
-    static final int TOOL_EXTENDER = 0x00000400;
+    int TOOL_EXTENDER = 0x00000400;
 
     /**
      * This method is used to set the display name for the current extension,
@@ -516,7 +516,8 @@ public interface IBurpExtenderCallbacks
      * @return An object that implements the <code>IMessageEditor</code>
      * interface, and which the extension can use in its own UI.
      */
-    IMessageEditor createMessageEditor(IMessageEditorController controller,
+    IMessageEditor createMessageEditor(
+            IMessageEditorController controller,
             boolean editable);
 
     /**
@@ -704,8 +705,26 @@ public interface IBurpExtenderCallbacks
      * interface, and which the extension can query to obtain the details of the
      * response.
      */
-    IHttpRequestResponse makeHttpRequest(IHttpService httpService,
+    IHttpRequestResponse makeHttpRequest(
+            IHttpService httpService,
             byte[] request);
+
+    /**
+     * This method can be used to issue HTTP requests and retrieve their
+     * responses.
+     *
+     * @param httpService The HTTP service to which the request should be sent.
+     * @param request The full HTTP request.
+     * @param forceHttp1 If true then HTTP/1 will be used.
+     * @return An object that implements the <code>IHttpRequestResponse</code>
+     * interface, and which the extension can query to obtain the details of the
+     * response.
+     */
+    IHttpRequestResponse makeHttpRequest(
+            IHttpService httpService,
+            byte[] request,
+            boolean forceHttp1);
+
 
     /**
      * This method can be used to issue HTTP requests and retrieve their
@@ -722,6 +741,53 @@ public interface IBurpExtenderCallbacks
             int port,
             boolean useHttps,
             byte[] request);
+
+    /**
+     * This method can be used to issue HTTP requests and retrieve their
+     * responses.
+     *
+     * @param host The hostname of the remote HTTP server.
+     * @param port The port of the remote HTTP server.
+     * @param useHttps Flags whether the protocol is HTTPS or HTTP.
+     * @param request The full HTTP request.
+     * @param forceHttp1 If true then HTTP/1 will be used.
+     * @return The full response retrieved from the remote server.
+     */
+    byte[] makeHttpRequest(
+            String host,
+            int port,
+            boolean useHttps,
+            byte[] request,
+            boolean forceHttp1);
+
+    /**
+     * This method can be used to issue HTTP/2 requests and retrieve their
+     * responses.
+     * @param httpService The HTTP service to which the request should be sent.
+     * @param headers The headers of the request.
+     * @param body The body of the request.
+     * @return The full response retrieved from the remote server.
+     */
+    byte[] makeHttp2Request(
+            IHttpService httpService,
+            List<IHttpHeader> headers,
+            byte[] body);
+
+    /**
+     * This method can be used to issue HTTP/2 requests and retrieve their
+     * responses. You can use this to force the network stack to send this
+     * request using HTTP/2.
+     * @param httpService The HTTP service to which the request should be sent.
+     * @param headers The headers of the request.
+     * @param body The body of the request.
+     * @param forceHttp2 Whether or not to force HTTP/2 for this request.
+     * @return The full response retrieved from the remote server.
+     */
+    byte[] makeHttp2Request(
+            IHttpService httpService,
+            List<IHttpHeader> headers,
+            byte[] body,
+            boolean forceHttp2);
 
     /**
      * This method can be used to query whether a specified URL is within the
@@ -801,7 +867,8 @@ public interface IBurpExtenderCallbacks
      * @param issues The Scanner issues to be reported.
      * @param file The file to which the report will be saved.
      */
-    void generateScanReport(String format, IScanIssue[] issues,
+    void generateScanReport(
+            String format, IScanIssue[] issues,
             java.io.File file);
 
     /**
@@ -863,8 +930,7 @@ public interface IBurpExtenderCallbacks
     void saveState(java.io.File file);
 
     /**
-     * This method causes Burp to save all of its current configuration as a Map
-     * of name/value Strings.
+     * This method is no longer supported. Please use saveConfigAsJson() instead.
      *
      * @return A Map of name/value Strings reflecting Burp's current
      * configuration.
@@ -874,13 +940,7 @@ public interface IBurpExtenderCallbacks
     Map<String, String> saveConfig();
 
     /**
-     * This method causes Burp to load a new configuration from the Map of
-     * name/value Strings provided. Any settings not specified in the Map will
-     * be restored to their default values. To selectively update only some
-     * settings and leave the rest unchanged, you should first call
-     * <code>saveConfig()</code> to obtain Burp's current configuration, modify
-     * the relevant items in the Map, and then call <code>loadConfig()</code>
-     * with the same Map.
+     * This method is no longer supported. Please use loadConfigFromJson() instead.
      *
      * @param config A map of name/value Strings to use as Burp's new
      * configuration.
