@@ -790,6 +790,24 @@ public interface IBurpExtenderCallbacks
             boolean forceHttp2);
 
     /**
+     * This method can be used to issue HTTP/2 requests and retrieve their
+     * responses. You can use this to make the network stack send this request
+     * using a specific named connection.
+     * @param httpService The HTTP service to which the request should be sent.
+     * @param headers The headers of the request.
+     * @param body The body of the request.
+     * @param forceHttp2 Whether or not to force HTTP/2 for this request.
+     * @param connectionIdentifier The identifier for the connection you want to use.
+     * @return The full response retrieved from the remote server.
+     */
+    byte[] makeHttp2Request(
+            IHttpService httpService,
+            List<IHttpHeader> headers,
+            byte[] body,
+            boolean forceHttp2,
+            String connectionIdentifier);
+
+    /**
      * This method can be used to query whether a specified URL is within the
      * current Suite-wide scope.
      *
