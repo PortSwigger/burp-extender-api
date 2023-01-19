@@ -18,7 +18,7 @@ package burp;
 public interface IHttpRequestResponsePersisted extends IHttpRequestResponse
 {
     /**
-     * This method is deprecated and no longer performs any action.
+     * @deprecated This method is deprecated and no longer performs any action.
      */
     @Deprecated
     void deleteTempFiles();
